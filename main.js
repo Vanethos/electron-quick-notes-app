@@ -1,4 +1,5 @@
-const {app, BrowserWindow} = require('electron')
+const electron = require('electron')
+const {app, BrowserWindow, ipcMain} = require('electron')
 const path = require('path')
 const url = require('url')
 
@@ -8,10 +9,14 @@ let win
 
 function createWindow () {
   // Create the browser window.
+  const {width, height} = electron.screen.getPrimaryDisplay().workAreaSize
   win = new BrowserWindow({
-    width: 800,
-    height: 600,
-    frame: false
+    width: 300,
+    height: height,
+    frame: false,
+    x: width - 300,
+    y: 0,
+    transparent: true
   })
 
   // and load the index.html of the app.
@@ -22,7 +27,7 @@ function createWindow () {
   }))
 
   // Open the DevTools.
-  win.webContents.openDevTools()
+  //win.webContents.openDevTools()
 
   // Emitted when the window is closed.
   win.on('closed', () => {
@@ -54,6 +59,7 @@ app.on('activate', () => {
     createWindow()
   }
 })
+
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.

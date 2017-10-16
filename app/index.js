@@ -1,3 +1,5 @@
+const {ipcRenderer} = require('electron');
+
 // get the reference to thje text input field
 const taskInputField = document.getElementById("addTask");
 // get the reference to the list
@@ -8,18 +10,26 @@ function addNewTask(e) {
   // this will hear for the enter key to be pressed
   if(e.keyCode === 13){
     e.preventDefault();
+    // create the root element
     var outerDiv = document.createElement("div");
-    var textDiv = document.createElement("div");
+    outerDiv.className = "divRoot";
+
+    // get the text from the input
+    var textElement = document.createTextNode(taskInputField.value);
+    textElement.className = "textDiv";
+
+    // create a span to put the span element inside it
+    var span = document.createElement("span");
+    span.className = "textSpan"
+    span.appendChild(textElement);
+
+
+    // create the element for the closing icon
     var xDiv = document.createElement("div");
-    outerDiv.appendChild(textDiv);
+    xDiv.className = "divCloseCircle";
+
     outerDiv.appendChild(xDiv);
-
-    //styling each div
-    textDiv.style.border = "thick solid #0000FF";
-    xDiv.style.border = "thick solid #0000FF";
-
-    textDiv.appendChild(document.createTextNode(taskInputField.value));
-    xDiv.appendChild(document.createTextNode("X"))
+    outerDiv.appendChild(span);
 
     // create a new li element
     var li = document.createElement("li");

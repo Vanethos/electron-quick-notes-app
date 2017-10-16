@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <html>
   <head>
-    
     <meta charset="UTF-8">
-    <title>Hello World!</title>
+    <title>Quick Notes</title>
+    <link rel="stylesheet" type="text/css" href="index.css">
   </head>
-  <body>
+  <body style="min-height: 100%">
     <form action="#" onSubmit="return false;">
-        Add new task:  <input type="text" id="addTask" onkeypress="addNewTask(event)">
+        <input type="text" id="addTask" onkeypress="addNewTask(event)" placeholder="Add a new Task..." size="46">
     </form>
 
     <ul id="tasksList">
-
     </ul>
 
     <script type="text/javascript" src="index.js"></script>
