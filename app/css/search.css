@@ -1,0 +1,14 @@
+.newTaskBox{
+  margin: auto;
+  right: 0; left: 0; top: 0; bottom: 0;
+  height: 20%;
+  width: 70%;
+  background: #7986CB;
+  position:absolute;
+  border-radius:10px;
+  border:10px solid #3F51B5;
+  font-size: 200%;
+  color: #FFFFFF;
+  padding: 12px;
+
+}

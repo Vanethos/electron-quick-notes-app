@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <script type="text/javascript" src="index.js"></script>
     <meta charset="UTF-8">
-    <title>Hello World!</title>
+    <title>Quick Notes</title>
+    <link rel="stylesheet" type="text/css" href="css/index.css">
   </head>
-  <body>
-    <form action="#" onSubmit="return false;">
-        Add new task:  <input type="text" id="addTask" onkeypress="addNewTask(event)">
-    </form>
-
+  <body style="min-height: 100%">
+    <div style="overflow: auto">
+      <ul id="tasksList" style="list-style-type:none">
+      </ul>
+    </div>
+    <script type="text/javascript" src="js/index.js"></script>
   </body>
 </html>

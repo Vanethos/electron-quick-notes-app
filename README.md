@@ -9,7 +9,7 @@ These instructions will get you a copy of the project up and running on your loc
 ### Prerequisites
 
 To install this application you need to have Electron installed globally.
-Please follow [this tutorial](https://www.tutorialspoint.com/electron/electron_installation.htm)  to check if you have Electron installed in your system: 
+Please follow [this tutorial](https://www.tutorialspoint.com/electron/electron_installation.htm)  to check if you have Electron installed in your system:
 
 ### Installing
 
@@ -38,11 +38,11 @@ And press `Enter` to add a new task.
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/Vanethos/electron-quick-notes-app/tags). 
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/Vanethos/electron-quick-notes-app/tags).
 
 ## Authors
 
-* **Gonçalo Palman** - *Initial work* - [PurpleBooth](https://github.com/Vanethos)
+* **Gonçalo Palma** - *Initial work* - [PurpleBooth](https://github.com/Vanethos)
 
 ## License
 
