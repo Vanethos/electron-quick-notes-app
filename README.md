@@ -42,7 +42,7 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ## Authors
 
-* **Gonçalo Palma** - *Initial work* - [PurpleBooth](https://github.com/Vanethos)
+* **Gonçalo Palma** - *Initial work* - [Vanethos](https://github.com/Vanethos)
 
 ## License
 
