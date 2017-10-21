@@ -6,12 +6,11 @@
     <link rel="stylesheet" type="text/css" href="index.css">
   </head>
   <body style="min-height: 100%">
-    <form action="#" onSubmit="return false;">
-        <input type="text" id="addTask" onkeypress="addNewTask(event)" placeholder="Add a new Task..." size="46">
-    </form>
+    <div style="overflow: auto">
+      <ul id="tasksList" style="list-style-type:none">
+      </ul>
+    </div>
 
-    <ul id="tasksList">
-    </ul>
 
     <script type="text/javascript" src="index.js"></script>
   </body>
