@@ -1,5 +1,7 @@
 const {ipcRenderer, remote} = require('electron');
 
+Mousetrap.bind('esc', function() {closeWindow();});
+
 
 document.getElementById("addTask").focus();
 
@@ -10,8 +12,12 @@ function addNewTask(e) {
     // check if value is a string and is not empty
     if (!(task === "")) {
       ipcRenderer.send('add-new-task-main', task);
-      var window = remote.getCurrentWindow();
-      window.close();
+      closeWindow();
     }
   }
+}
+
+function closeWindow () {
+  var window = remote.getCurrentWindow();
+  window.close();
 }

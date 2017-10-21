@@ -1,13 +1,20 @@
 const electron = require('electron')
-const  {Tray, webContents, globalShortcut, app, BrowserWindow, ipcMain} = require('electron')
+const  {Tray, Menu, webContents, globalShortcut, app, BrowserWindow, ipcMain} = require('electron')
 const path = require('path')
 const url = require('url')
+
+// https://www.npmjs.com/package/electron-localshortcut
+const electronLocalshortcut = require('electron-localshortcut');
+
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let tasksWin;
 let searchBarWin;
-let tray = null;
+let aboutMeWin;
+let tray;
+
+const debug = false;
 
 function createWindow () {
   // Create the browser window.
@@ -29,7 +36,9 @@ function createWindow () {
   }))
 
   // Open the DevTools.
-  //tasksWin.webContents.openDevTools()
+  if (debug) {
+    tasksWin.webContents.openDevTools()
+  }
 
   // Emitted when the window is closed.
   tasksWin.on('closed', () => {
@@ -67,23 +76,81 @@ function createSearchWindow () {
     searchBarWin = null
   })
 
+  electronLocalshortcut.register(searchBarWin, 'Esc', () => {
+        searchBarWin.close();
+  });
+
   // Open the DevTools.
-  //searchBarWin.webContents.openDevTools()
+  if (debug) {
+    searchBarWin.webContents.openDevTools()
+  }
+}
+
+function createAboutMeWin() {
+  aboutMeWin = new BrowserWindow({
+    width: 800,
+    height: 600,
+  })
+
+  aboutMeWin.loadURL('https://vanethos.github.io/')
+
+  aboutMeWin.on('close', () => {
+    aboutMeWin = null;
+  });
 }
 
 function setTrayIcon () {
-  tray = new Tray('app/icons/icon.png')
-  const contextMenu = Menu.buildFromTemplate([
-    {label: 'Close', type: 'normal'},
-    {label: 'Item2', type: 'radio'},
-    {label: 'Item3', type: 'radio', checked: true},
-    {label: 'Item4', type: 'radio'}
-  ])
-  tray.setToolTip('This is my application.')
-  tray.setContextMenu(contextMenu)
+  tray = new Tray('app/icons/icon.png');
+  // for macOSX
+  tray.setPressedImage('app/icons/iconHighlight.png');
+  const trayMenuTemplate = [
+    {
+               label: 'Quick Notes',
+               enabled: false
+            },
 
-  tray.on('click' () => {
-    contextMenu.show();
+            {
+               label: 'New Task',
+               accelerator: 'CommandOrControl+K',
+               click: function () {
+                 if (searchBarWin == null) {
+                   // if we don't have one, create a bar
+                   createSearchWindow();
+                 }
+               }
+            },
+
+            {
+               label: 'About Me',
+               click: function () {
+                 if (aboutMeWin == null) {
+                   createAboutMeWin();
+                 }
+               }
+            },
+
+            {
+               label: 'Close',
+               click: function () {
+                  app.quit();
+               }
+            }
+  ]
+  const contextMenu = Menu.buildFromTemplate(trayMenuTemplate);
+  tray.setContextMenu(contextMenu)
+}
+
+function registerGlobalCommands() {
+  globalShortcut.register('CommandOrControl+K', () => {
+    // check if we already have a window on the screen
+    if (searchBarWin == null) {
+      // if we don't have one, create a bar
+      createSearchWindow();
+    } else {
+      // close the current one;
+      searchBarWin.close();
+      searchBarWin = null;
+    }
   });
 }
 
@@ -96,10 +163,7 @@ app.dock.hide();
 app.on('ready', () => {
   setTrayIcon();
   createWindow();
-  globalShortcut.register('CommandOrControl+K', () => {
-    console.log('CommandOrControl+K is pressed');
-    createSearchWindow();
-  })
+  registerGlobalCommands();
 })
 
 // Quit when all windows are closed.

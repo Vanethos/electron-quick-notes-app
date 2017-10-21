@@ -1,5 +1,6 @@
 const {ipcRenderer} = require('electron');
 
+
 // get the reference to the list
 const tasksList = document.getElementById("tasksList");
 

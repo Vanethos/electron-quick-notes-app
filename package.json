@@ -1,5 +1,8 @@
 {
-  "name"    : "electron-quick-notes-app",
-  "version" : "0.1.0",
-  "main"    : "main.js"
+  "name": "electron-quick-notes-app",
+  "version": "0.1.0",
+  "main": "main.js",
+  "dependencies": {
+    "electron-localshortcut": "^2.0.2"
+  }
 }
