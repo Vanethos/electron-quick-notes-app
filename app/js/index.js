@@ -1,4 +1,4 @@
-const {ipcRenderer} = require('electron');
+const {ipcRenderer, remote} = require('electron');
 
 
 // get the reference to the list
@@ -40,5 +40,10 @@ ipcRenderer.on("add-new-task-ui", function(event, task) {
 function addClickToX(element, root) {
   element.addEventListener("click", function() {
     tasksList.removeChild(root);
+    // check if we have any element on the list, if not, then minize it
+    if(tasksList.getElementsByTagName("li").length <= 0) {
+      var window = remote.getCurrentWindow();
+      window.minimize();
+    }
   })
 }

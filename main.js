@@ -19,12 +19,14 @@ const debug = false;
 function createWindow () {
   // Create the browser window.
   const {width, height} = electron.screen.getPrimaryDisplay().workAreaSize
+  var marginTop = 100;
+  var finalHeight = height - marginTop;
   tasksWin = new BrowserWindow({
     width: 300,
-    height: height,
+    height: finalHeight,
     frame: false,
     x: width - 300,
-    y: 0,
+    y: marginTop,
     transparent: true
   })
 
@@ -34,6 +36,9 @@ function createWindow () {
     protocol: 'file:',
     slashes: true
   }))
+
+  // since we start with NO elements on the list, we minimize the window
+  tasksWin.minimize();
 
   // Open the DevTools.
   if (debug) {
@@ -189,6 +194,9 @@ ipcMain.on("add-new-task-main", (event, task) => {
   //var window = require('electron').remote.getCurrentWindow();
   //window.close();
   if (tasksWin !== null) {
+    if (tasksWin.isMinimized()) {
+      tasksWin.restore();
+    }
     console.log("And the task is...." + task);
     tasksWin.webContents.send("add-new-task-ui", task);
   }
